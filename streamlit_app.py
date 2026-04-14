@@ -125,12 +125,12 @@ st.markdown("""
 
     /* ── Content blocks ── */
     .transcript-text {
-        background: rgba(99, 102, 241, 0.12);
-        border-left: 3px solid #818cf8;
+        background: #1e1b4b !important;
+        border-left: 4px solid #818cf8 !important;
         border-radius: 0 10px 10px 0;
-        padding: 1rem 1.25rem;
-        color: #f1f5f9;
-        font-size: 1rem;
+        padding: 1.1rem 1.25rem !important;
+        color: #ffffff !important;
+        font-size: 1.05rem !important;
         line-height: 1.7;
         font-style: italic;
     }
@@ -725,7 +725,10 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 if st.session_state.transcript:
-    st.markdown(f'<div class="transcript-text">"{st.session_state.transcript}"</div>', unsafe_allow_html=True)
+    st.markdown(
+        f'<div class="transcript-text" style="color:#ffffff !important; background:#1e1b4b !important; padding:1.1rem 1.25rem; border-left:4px solid #818cf8; border-radius:0 10px 10px 0; font-size:1.05rem; line-height:1.7; font-style:italic;">"{st.session_state.transcript}"</div>',
+        unsafe_allow_html=True,
+    )
 else:
     st.markdown('<div class="waiting">Waiting for input…</div>', unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
