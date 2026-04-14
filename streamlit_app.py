@@ -62,7 +62,7 @@ st.markdown("""
         letter-spacing: -0.02em;
     }
     .app-header p {
-        color: #94a3b8;
+        color: #cbd5e1;
         font-size: 0.95rem;
         margin: 0;
     }
@@ -70,7 +70,7 @@ st.markdown("""
     /* ── Pipeline Card ── */
     .pipeline-card {
         background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
-        border: 1px solid rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.1);
         border-radius: 14px;
         padding: 1.5rem;
         margin-bottom: 1rem;
@@ -117,31 +117,31 @@ st.markdown("""
         color: #34d399;
     }
     .step-title {
-        color: #e2e8f0;
-        font-size: 1rem;
+        color: #f8fafc;
+        font-size: 1.05rem;
         font-weight: 600;
         letter-spacing: -0.01em;
     }
 
     /* ── Content blocks ── */
     .transcript-text {
-        background: rgba(99, 102, 241, 0.06);
-        border-left: 3px solid #6366f1;
+        background: rgba(99, 102, 241, 0.12);
+        border-left: 3px solid #818cf8;
         border-radius: 0 10px 10px 0;
         padding: 1rem 1.25rem;
-        color: #c7d2fe;
-        font-size: 0.95rem;
-        line-height: 1.6;
+        color: #f1f5f9;
+        font-size: 1rem;
+        line-height: 1.7;
         font-style: italic;
     }
     .intent-badge {
         display: inline-block;
-        background: rgba(245, 158, 11, 0.12);
-        color: #fbbf24;
-        border: 1px solid rgba(245, 158, 11, 0.25);
+        background: rgba(245, 158, 11, 0.18);
+        color: #fcd34d;
+        border: 1px solid rgba(245, 158, 11, 0.35);
         border-radius: 8px;
         padding: 0.35rem 0.85rem;
-        font-size: 0.85rem;
+        font-size: 0.88rem;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.04em;
@@ -150,35 +150,35 @@ st.markdown("""
         display: inline-block;
         border-radius: 8px;
         padding: 0.35rem 0.85rem;
-        font-size: 0.8rem;
+        font-size: 0.82rem;
         font-weight: 600;
         margin-left: 0.5rem;
     }
     .confidence-high {
-        background: rgba(16, 185, 129, 0.12);
-        color: #34d399;
-        border: 1px solid rgba(16, 185, 129, 0.25);
+        background: rgba(16, 185, 129, 0.18);
+        color: #6ee7b7;
+        border: 1px solid rgba(16, 185, 129, 0.35);
     }
     .confidence-medium {
-        background: rgba(245, 158, 11, 0.12);
-        color: #fbbf24;
-        border: 1px solid rgba(245, 158, 11, 0.25);
+        background: rgba(245, 158, 11, 0.18);
+        color: #fcd34d;
+        border: 1px solid rgba(245, 158, 11, 0.35);
     }
     .confidence-low {
-        background: rgba(239, 68, 68, 0.12);
-        color: #f87171;
-        border: 1px solid rgba(239, 68, 68, 0.25);
+        background: rgba(239, 68, 68, 0.18);
+        color: #fca5a5;
+        border: 1px solid rgba(239, 68, 68, 0.35);
     }
     .params-block {
-        background: rgba(0,0,0,0.3);
-        border: 1px solid rgba(255,255,255,0.05);
+        background: rgba(0,0,0,0.35);
+        border: 1px solid rgba(255,255,255,0.08);
         border-radius: 10px;
         padding: 1rem;
         margin-top: 0.75rem;
         font-family: 'JetBrains Mono', monospace;
-        font-size: 0.82rem;
-        color: #a5b4fc;
-        line-height: 1.6;
+        font-size: 0.85rem;
+        color: #e0e7ff;
+        line-height: 1.7;
         white-space: pre-wrap;
         overflow-x: auto;
     }
@@ -188,40 +188,40 @@ st.markdown("""
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        color: #94a3b8;
-        font-size: 0.9rem;
+        color: #e2e8f0;
+        font-size: 0.95rem;
         padding: 0.5rem 0;
     }
     .action-line .icon { font-size: 1.1rem; }
 
     /* ── Result ── */
     .result-success {
-        background: rgba(16, 185, 129, 0.06);
-        border-left: 3px solid #10b981;
+        background: rgba(16, 185, 129, 0.1);
+        border-left: 3px solid #34d399;
         border-radius: 0 10px 10px 0;
         padding: 1rem 1.25rem;
-        color: #a7f3d0;
-        font-size: 0.9rem;
-        line-height: 1.6;
+        color: #ecfdf5;
+        font-size: 0.95rem;
+        line-height: 1.7;
     }
     .result-error {
-        background: rgba(239, 68, 68, 0.06);
-        border-left: 3px solid #ef4444;
+        background: rgba(239, 68, 68, 0.1);
+        border-left: 3px solid #f87171;
         border-radius: 0 10px 10px 0;
         padding: 1rem 1.25rem;
-        color: #fca5a5;
-        font-size: 0.9rem;
+        color: #fef2f2;
+        font-size: 0.95rem;
     }
     .code-output {
-        background: rgba(0,0,0,0.4);
-        border: 1px solid rgba(255,255,255,0.06);
+        background: rgba(0,0,0,0.45);
+        border: 1px solid rgba(255,255,255,0.1);
         border-radius: 10px;
         padding: 1rem;
         margin-top: 0.75rem;
         font-family: 'JetBrains Mono', monospace;
-        font-size: 0.82rem;
-        color: #e2e8f0;
-        line-height: 1.6;
+        font-size: 0.85rem;
+        color: #f8fafc;
+        line-height: 1.7;
         white-space: pre-wrap;
         overflow-x: auto;
     }
@@ -238,8 +238,8 @@ st.markdown("""
 
     /* ── Waiting state ── */
     .waiting {
-        color: #475569;
-        font-size: 0.85rem;
+        color: #94a3b8;
+        font-size: 0.9rem;
         font-style: italic;
         padding: 0.5rem 0;
     }
@@ -258,11 +258,11 @@ st.markdown("""
         background: rgba(99, 102, 241, 0.06);
     }
     .history-time {
-        color: #475569;
+        color: #94a3b8;
         font-size: 0.75rem;
     }
     .history-text {
-        color: #cbd5e1;
+        color: #e2e8f0;
         font-size: 0.85rem;
         margin-top: 0.15rem;
         overflow: hidden;
@@ -279,8 +279,8 @@ st.markdown("""
         gap: 1rem;
     }
     .recorder-hint {
-        color: #64748b;
-        font-size: 0.85rem;
+        color: #cbd5e1;
+        font-size: 0.9rem;
         text-align: center;
         line-height: 1.5;
     }
