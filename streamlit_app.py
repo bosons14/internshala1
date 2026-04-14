@@ -15,6 +15,7 @@ import io
 import tempfile
 from pathlib import Path
 from audio_recorder_streamlit import audio_recorder
+from pydub import AudioSegment
 
 # ─── Page Config ───
 st.set_page_config(
@@ -360,6 +361,49 @@ Important:
 - Return ONLY valid JSON, no explanations'''
 
 
+def normalize_browser_audio(raw_bytes: bytes) -> str:
+    """
+    Convert browser-recorded audio (WebM/Opus/OGG) to a clean
+    16-bit 16 kHz mono WAV that Whisper can reliably transcribe.
+
+    Returns the path to the converted temp file (caller must delete).
+    """
+    # Write raw bytes so pydub/ffmpeg can probe the real codec
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".webm") as src:
+        src.write(raw_bytes)
+        src_path = src.name
+
+    try:
+        # Let ffmpeg auto-detect the input format
+        audio = AudioSegment.from_file(src_path)
+    except Exception:
+        # Fallback: try treating as raw WAV in case the component header is fine
+        try:
+            audio = AudioSegment.from_file(io.BytesIO(raw_bytes), format="wav")
+        except Exception:
+            os.unlink(src_path)
+            raise RuntimeError(
+                "Could not decode the recorded audio. "
+                "Make sure ffmpeg is installed (sudo apt install ffmpeg)."
+            )
+    finally:
+        if os.path.exists(src_path):
+            os.unlink(src_path)
+
+    # Normalize to exactly what Whisper expects
+    audio = (
+        audio
+        .set_channels(1)          # mono
+        .set_frame_rate(16000)    # 16 kHz (Whisper's native rate)
+        .set_sample_width(2)      # 16-bit
+    )
+
+    out = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
+    audio.export(out.name, format="wav")
+    out.close()
+    return out.name
+
+
 def transcribe_audio(audio_path: str) -> str:
     """Transcribe audio file using Whisper."""
     from transformers import pipeline as hf_pipeline
@@ -628,18 +672,29 @@ if reset_clicked:
 if run_clicked:
     reset_pipeline()
     if recorded_bytes:
-        # Save recorded bytes to a temp wav file
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as tmp:
-            tmp.write(recorded_bytes)
-            tmp_path = tmp.name
+        # Decode browser audio (WebM/Opus) → clean 16 kHz mono WAV
+        try:
+            tmp_path = normalize_browser_audio(recorded_bytes)
+        except RuntimeError as e:
+            st.error(str(e))
+            st.stop()
         run_pipeline(tmp_path, backend, model_name)
         os.unlink(tmp_path)
     elif uploaded is not None:
-        # Save uploaded file to temp
+        # Save uploaded file, then normalize to clean WAV
         suffix = Path(uploaded.name).suffix
         with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
             tmp.write(uploaded.getvalue())
-            tmp_path = tmp.name
+            raw_path = tmp.name
+        try:
+            audio = AudioSegment.from_file(raw_path)
+            audio = audio.set_channels(1).set_frame_rate(16000).set_sample_width(2)
+            tmp_path = raw_path.rsplit(".", 1)[0] + "_norm.wav"
+            audio.export(tmp_path, format="wav")
+            os.unlink(raw_path)
+        except Exception:
+            # Fallback: use the file as-is if conversion fails
+            tmp_path = raw_path
         run_pipeline(tmp_path, backend, model_name)
         os.unlink(tmp_path)
     elif text_input.strip():
